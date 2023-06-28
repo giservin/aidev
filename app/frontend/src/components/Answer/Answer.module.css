@@ -45,8 +45,8 @@
     text-align: center;
     border-radius: 4px;
     padding: 0px 8px;
-    background: #d1dbfa;
-    color: #123bb6;
+    background: #d60800;
+    color: #ffffff;
     text-decoration: none;
     cursor: pointer;
 }
@@ -100,8 +100,8 @@ sup {
     min-width: 14px;
     height: 14px;
     border-radius: 3px;
-    background: #d1dbfa;
-    color: #123bb6;
+    background: #d60800;
+    color: #ffffff;
     text-decoration-color: transparent;
     outline: transparent solid 1px;
     cursor: pointer;

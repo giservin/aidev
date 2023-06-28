@@ -125,17 +125,23 @@ const OneShot = () => {
         <div className={styles.oneshotContainer}>
             <div className={styles.oneshotTopSection}>
                 <SettingsButton className={styles.settingsButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
-                <h1 className={styles.oneshotTitle}>Ask Company Data</h1>
+                <h1 className={styles.oneshotTitle}>
+                    Selamat Datang<br></br>Di Pusat Pengetahuan Perusahaan
+                </h1>
+                <h1 className={styles.oneshotCaption}>
+                    AI kami memahami pertanyaan Anda, dapatkan detail peraturan cuti, jam kerja, dan lebih banyak lagi dengan mudah dalam hitungan detik.
+                    Cobalah sekarang!
+                </h1>
                 <div className={styles.oneshotQuestionInput}>
                     <QuestionInput
-                        placeholder="Example: Tampilkan data jam kerja perusahaan!"
+                        placeholder="Tulis pertanyaan anda disini... (Contoh: Tampilkan data jam kerja perusahaan!)"
                         disabled={isLoading}
                         onSend={question => makeApiRequest(question)}
                     />
                 </div>
             </div>
             <div className={styles.oneshotBottomSection}>
-                {isLoading && <Spinner label="Generating answer" />}
+                {isLoading && <Spinner label="Mempersiapkan jawaban" />}
                 {!isLoading && answer && !error && (
                     <div className={styles.oneshotAnswerContainer}>
                         <Answer

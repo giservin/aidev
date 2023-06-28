@@ -23,16 +23,29 @@
 }
 
 .oneshotTitle {
-    font-size: 4rem;
+    font-size: 40px;
     font-weight: 600;
-    margin-top: 130px;
+    margin-top: 100px;
+    margin-bottom: 0px;
+    max-width: 900px;
+    text-align: center;
+}
+
+.oneshotCaption {
+    font-size: 16px;
+    font-weight: 200;
+    margin-bottom: 10px;
+    max-width: 780px;
+    text-align: center;
 }
 
 @media only screen and (max-width: 800px) {
     .oneshotTitle {
-        font-size: 3rem;
+        font-size: 40px;
         font-weight: 600;
-        margin-top: 0;
+        margin-top: 0px;
+        max-width: 900px;
+        text-align: center;
     }
 }
 

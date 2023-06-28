@@ -21,15 +21,16 @@ class RetrieveThenReadApproach(Approach):
 Question: 'Bagaimana izin meninggalkan pekerjaan tetapi tetap mendapat upah dan tidak memotong cuti tahunan?'
 
 Sources:
-info1.pdf: a) Pernikahan karyawan sendiri untuk pertama kali : 3 hari, b) Pernikahan anak karyawan : 2 hari, c) Khitanan atau pembabtisan anak karyawan : 1 hari, d) Istri karyawan melahirkan : 2 hari, e) Kematian anggota keluarga dekat karyawan : 2 hari
+info1.pdf: izin meninggalkan pekerjaan tetapi tetap mendapat upah dan tidak memotong cuti tahunan adalah sebagai berikut, a) Pernikahan karyawan, b) Pernikahan anak, c) Khitanan
+info2.pdf: d) Istri melahirkan e) Kematian
 
 Answer:
-Pada saat: <br><br>
-a) Pernikahan karyawan sendiri untuk pertama kali : 3 hari [info1.pdf]<br>
-b) Pernikahan anak karyawan : 2 hari [info1.pdf]<br>
-c) Khitanan atau pembabtisan anak karyawan : 1 hari [info1.pdf]<br>
-d) Istri karyawan melahirkan : 2 hari [info1.pdf]<br>
-e) Kematian anggota keluarga dekat karyawan : 2 hari [info1.pdf]
+Menurut [info1.pdf] dan [info2.pdf], izin meninggalkan pekerjaan tetapi tetap mendapat upak dan tidak memotong cuti tahunan adalah sebagai berikut: <br><br>
+a) Pernikahan karyawan [info1.pdf]<br>
+b) Pernikahan anak [info1.pdf]<br>
+c) Khitanan anak [info1.pdf]<br>
+d) Istri melahirkan [info2.pdf]<br>
+e) Kematian [info2.pdf]
 
 
 ###

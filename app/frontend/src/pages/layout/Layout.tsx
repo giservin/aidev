@@ -1,4 +1,6 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
+import telkomsigmaLogo from "./logotelkomsigma.png";
+import azuredanopenaiLogo from "./logoazuredanopenai.png";
 
 import github from "../../assets/github.svg";
 
@@ -10,24 +12,24 @@ const Layout = () => {
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     <Link to="/" className={styles.headerTitleContainer}>
-                        <h3 className={styles.headerTitle}>OpenAI Telkomsigma</h3>
+                        <img src={telkomsigmaLogo} alt="Telkomsigma Logo" className={styles.headerLogo} />
                     </Link>
+
                     <nav>
                         <ul className={styles.headerNavList}>
                             <li>
                                 <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Chat
+                                    ChatGPT
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>
                                 <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Ask Company Data
+                                    Internal Data
                                 </NavLink>
                             </li>
-                            <li className={styles.headerNavLeftMargin}></li>
                         </ul>
                     </nav>
-                    <h4 className={styles.headerRightText}>Azure OpenAI + Cognitive Search</h4>
+                    <img src={azuredanopenaiLogo} alt="Azure Logo" className={styles.headerLogo} />
                 </div>
             </header>
 

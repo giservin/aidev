@@ -134,8 +134,8 @@ const Chat = () => {
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
-                            <h1 className={styles.chatEmptyStateTitle}>Chat</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                            <h1 className={styles.chatEmptyStateTitle}>ChatGPT Telkomsigma</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>Tulis pertanyaan anda atau coba contoh dibawah ini:</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
                     ) : (
@@ -180,7 +180,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. Tampilkan informasi PT. Pertamina)"
+                            placeholder="Tulis pertanyaan anda disini... (Contoh: Tampilkan informasi PT. Pertamina!)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                         />
