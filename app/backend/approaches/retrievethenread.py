@@ -10,7 +10,7 @@ from text import nonewlines
 class RetrieveThenReadApproach(Approach):
 
     template = \
-"You are an intelligent assistant helping employees with their guidance book/employee handbook questions. " + \
+"You are an intelligent assistant helping employees with their questions. " + \
 "Use 'you' to refer to the individual asking the questions even if they ask with 'I'. " + \
 "Answer the following question using only the data provided in the sources below. " + \
 "Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. " + \
@@ -25,7 +25,7 @@ info1.pdf: izin meninggalkan pekerjaan tetapi tetap mendapat upah dan tidak memo
 info2.pdf: d) Istri melahirkan e) Kematian
 
 Answer:
-Menurut [info1.pdf] dan [info2.pdf], izin meninggalkan pekerjaan tetapi tetap mendapat upak dan tidak memotong cuti tahunan adalah sebagai berikut: <br><br>
+Menurut info1 [info1.pdf] dan info2 [info2.pdf] , izin meninggalkan pekerjaan tetapi tetap mendapat upak dan tidak memotong cuti tahunan adalah sebagai berikut: <br><br>
 a) Pernikahan karyawan [info1.pdf]<br>
 b) Pernikahan anak [info1.pdf]<br>
 c) Khitanan anak [info1.pdf]<br>
