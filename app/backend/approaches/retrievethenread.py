@@ -14,7 +14,7 @@ class RetrieveThenReadApproach(Approach):
 "Use 'you' to refer to the individual asking the questions even if they ask with 'I'. " + \
 "Answer the following question using only the data provided in the sources below. " + \
 "Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. " + \
-"If you cannot answer using the sources below, say you don't know. " + \
+"If you cannot answer using the sources below, say sorry and say that you don't have the data at this moment but gently. " + \
 """
 
 ###
