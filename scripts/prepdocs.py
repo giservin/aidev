@@ -5,6 +5,8 @@ import html
 import io
 import re
 import time
+import csv
+
 from pypdf import PdfReader, PdfWriter
 from azure.identity import AzureDeveloperCliCredential
 from azure.core.credentials import AzureKeyCredential
@@ -56,6 +58,8 @@ if not args.localpdfparser:
 def blob_name_from_file_page(filename, page = 0):
     if os.path.splitext(filename)[1].lower() == ".pdf":
         return os.path.splitext(os.path.basename(filename))[0] + f"-{page}" + ".pdf"
+    elif os.path.splitext(filename)[1].lower() == ".csv":
+        return os.path.splitext(os.path.basename(filename))[0] + f"-{page}" + ".csv"
     else:
         return os.path.basename(filename)
 
@@ -78,6 +82,27 @@ def upload_blobs(filename):
             writer.write(f)
             f.seek(0)
             blob_container.upload_blob(blob_name, f, overwrite=True)
+    elif os.path.splitext(filename)[1].lower() == ".csv":
+        with open(filename, 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=';')
+            headers = next(reader)  # Read the header row
+            count = 0
+            for row in reader:
+                # Create a new file name based on the value in the first column
+                file_name = blob_name_from_file_page(filename, count)
+                print(f"\tGenerating CSV {count} -> {file_name}")
+                # output_folder = 'E:/aidev-main/testing-code/output'  # Set the local folder path here
+                # output_filename = os.path.join(output_folder, file_name)
+                # file_name = f"{row[0]}.csv"  # Assuming the first column contains the unique identifier
+                count+=1
+                f = io.StringIO()
+                # Write the header and row to the new file
+                # with open(output_filename, 'w', newline='') as output_file:
+                writer = csv.writer(f)
+                writer.writerow(headers)
+                writer.writerow(row)
+                f.seek(0)
+                blob_container.upload_blob(file_name, f.getvalue().encode(), overwrite=True)
     else:
         blob_name = blob_name_from_file_page(filename)
         with open(filename,"rb") as data:
@@ -160,6 +185,40 @@ def get_document_text(filename):
 
     return page_map
 
+def get_csv_mapping(filename):
+    csv_mapping = []
+    with open(filename, 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        headers = next(reader)  # Read the header row
+        count = 0
+        for row in reader:
+            # Create a new file name based on the value in the first column
+            file_name = blob_name_from_file_page(filename, count)
+            print(f"\tGenerating CSV {count} -> {file_name}")
+            # output_folder = 'E:/aidev-main/testing-code/output'  # Set the local folder path here
+            # output_filename = os.path.join(output_folder, file_name)
+            # file_name = f"{row[0]}.csv"  # Assuming the first column contains the unique identifier
+            count+=1
+            f = io.StringIO()
+            # Write the header and row to the new file
+            # with open(output_filename, 'w', newline='') as output_file:
+            writer = csv.writer(f)
+            writer.writerow(headers)
+            writer.writerow(row)
+            f.seek(0)
+            csv_mapping.append((file_name, f.getvalue()))
+    return csv_mapping
+
+def create_csv_index_doc(page_map):
+    for (fname, text) in page_map:
+        yield {
+            "id": re.sub("[^0-9a-zA-Z_-]","_",f"{fname}"),
+            "content": text,
+            "category": "null",
+            "sourcepage": fname,
+            "sourcefile": fname.split("-")[0] + fname.split(".")[1]
+        }
+
 def split_text(page_map):
     SENTENCE_ENDINGS = [".", "!", "?"]
     WORDS_BREAKS = [",", ";", ":", " ", "(", ")", "[", "]", "{", "}", "\t", "\n"]
@@ -239,7 +298,7 @@ def create_search_index():
             name=args.index,
             fields=[
                 SimpleField(name="id", type="Edm.String", key=True),
-                SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft"),
+                SearchableField(name="content", type="Edm.String", analyzer_name="id.microsoft"),
                 SimpleField(name="category", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcepage", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True)
@@ -310,6 +369,14 @@ else:
         else:
             if not args.skipblobs:
                 upload_blobs(filename)
-            page_map = get_document_text(filename)
-            sections = create_sections(os.path.basename(filename), page_map)
-            index_sections(os.path.basename(filename), sections)
+            if(os.path.splitext(filename)[1].lower() == ".pdf"):
+                print("start processing for PDF")
+                page_map = get_document_text(filename)
+                sections = create_sections(os.path.basename(filename), page_map)
+                index_sections(os.path.basename(filename), sections)
+            if(os.path.splitext(filename)[1].lower() == ".csv"):
+                print("start processing for CSV")
+                page_map = get_csv_mapping(filename)
+                docs = create_csv_index_doc(page_map)
+                index_sections(os.path.basename(filename), docs)
+
